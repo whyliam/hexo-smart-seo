@@ -1,0 +1,44 @@
+{
+  "name": "hexo-smart-seo",
+  "version": "0.1.0",
+  "description": "Modern SEO and GEO metadata injector for Hexo sites.",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "lib",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node test/seo.test.js"
+  },
+  "keywords": [
+    "hexo",
+    "seo",
+    "geo",
+    "ai-search",
+    "open-graph",
+    "json-ld",
+    "structured-data"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whyliam/hexo-smart-seo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/whyliam/hexo-smart-seo/issues"
+  },
+  "homepage": "https://github.com/whyliam/hexo-smart-seo#readme",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
+  "peerDependencies": {
+    "hexo": ">=6"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {}
+}
