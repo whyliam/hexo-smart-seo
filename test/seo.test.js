@@ -129,4 +129,27 @@ assert.doesNotMatch(withCanonicalQuery, /&amp;amp;/);
 const bodyImage = buildSeoTags({config: {url: 'https://example.com'}, html: base.html});
 assert.match(bodyImage, /property="og:image" content="https:\/\/example.com\/inline.jpg"/);
 
+
+
+const {enforceRobots} = require('../lib/seo');
+const restrictive = enforceRobots('<head><meta name = "robots" content="index,follow"></head>', {
+  config: base.config, page: {noindex: true, robots: 'index,follow'}
+});
+assert.match(restrictive, /content="noindex,follow"/);
+assert.doesNotMatch(restrictive, /content="index,follow"/);
+for (const image of [{}, {src: ''}, null]) assert.doesNotThrow(() => buildSeoTags({...base, page: {image}}));
+assert.strictEqual(absoluteUrl('https://example.com/blog', '/blog/post/'), 'https://example.com/blog/post/');
+assert.strictEqual(absoluteUrl('https://example.com/blog', 'post/'), 'https://example.com/blog/post/');
+assert.strictEqual(absoluteUrl('https://example.com', 'javascript:alert(1)'), '');
+const whitespace = buildSeoTags({...base, page: {description: 'new'}, html: '<head><meta name = "description" content="existing"></head>'});
+assert.doesNotMatch(whitespace, /name="description"/);
+const comments = buildSeoTags({...base, html: '<head><!-- <meta name="description" content="example"> --></head>'});
+assert.match(comments, /name="description"/);
+assert.strictEqual(cleanText('A &amp; B <strong>C</strong>'), 'A & B C');
+
+
+assert.strictEqual(isHtmlDocument('<!-- <head>example</head> -->'), false);
+const {headEnd} = require('../lib/html');
+const commentedClose = '<html><head><!-- example </head> --><title>real</title></head><body></body></html>';
+assert.strictEqual(headEnd(commentedClose), commentedClose.lastIndexOf('</head>'));
 console.log('seo tests passed');

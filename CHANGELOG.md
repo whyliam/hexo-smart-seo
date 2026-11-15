@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0 (2026-11-15)
+
+Use a runtime HTML parser for metadata/entity boundaries, enforce explicit noindex against theme robots tags, handle empty image objects, resolve absolute/subdirectory URLs correctly, use post content for fallback images, and expand configuration/security documentation.
+
 ## 0.1.1 (2026-11-15)
 
 Handle invalid dates without failing generation. Avoid duplicate plugin JSON-LD and article tags; ignore body metadata when checking head tags. Preserve body-image extraction, avoid empty publisher logo objects and double escaping canonical URL query strings.

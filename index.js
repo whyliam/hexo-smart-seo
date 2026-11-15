@@ -1,6 +1,7 @@
 'use strict';
 
-const { buildSeoTags, isHtmlDocument } = require('./lib/seo');
+const { buildSeoTags, isHtmlDocument, enforceRobots } = require('./lib/seo');
+const {headEnd} = require('./lib/html');
 
 hexo.extend.filter.register('after_render:html', function injectSeo(html, locals) {
   const config = this.config || {};
@@ -8,15 +9,17 @@ hexo.extend.filter.register('after_render:html', function injectSeo(html, locals
 
   if (!options.enable || !isHtmlDocument(html)) return html;
 
-  const tags = buildSeoTags({
+  const settings = {
     config,
     page: locals && locals.page ? locals.page : {},
     path: locals && locals.path ? locals.path : '',
     locals: locals || {},
     options,
-    html
-  });
+  };
+  html = enforceRobots(html, settings);
+  const tags = buildSeoTags({...settings, html});
 
   if (!tags) return html;
-  return html.replace(/<\/head>/i, `${tags}\n</head>`);
+  const closing = headEnd(html);
+  return html.slice(0, closing) + tags + '\n' + html.slice(closing);
 }, 1);

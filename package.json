@@ -1,6 +1,6 @@
 {
   "name": "hexo-smart-seo",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Modern SEO and GEO metadata injector for Hexo sites.",
   "main": "index.js",
   "files": [
@@ -36,11 +36,13 @@
     "node": ">=20.19.0"
   },
   "peerDependencies": {
-    "hexo": ">=6"
+    "hexo": ">=7"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "devDependencies": {}
+  "dependencies": {
+    "htmlparser2": "^10.1.0"
+  }
 }
