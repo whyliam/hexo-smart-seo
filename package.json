@@ -1,6 +1,6 @@
 {
   "name": "hexo-smart-seo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Modern SEO and GEO metadata injector for Hexo sites.",
   "main": "index.js",
   "files": [
@@ -11,7 +11,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node test/seo.test.js"
+    "test": "node test/seo.test.js",
+    "prepublishOnly": "npm test"
   },
   "keywords": [
     "hexo",
@@ -32,13 +33,14 @@
   "homepage": "https://github.com/whyliam/hexo-smart-seo#readme",
   "license": "MIT",
   "engines": {
-    "node": ">=16"
+    "node": ">=20.19.0"
   },
   "peerDependencies": {
     "hexo": ">=6"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {}
 }

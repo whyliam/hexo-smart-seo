@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.1 (2026-11-15)
+
+Handle invalid dates without failing generation. Avoid duplicate plugin JSON-LD and article tags; ignore body metadata when checking head tags. Preserve body-image extraction, avoid empty publisher logo objects and double escaping canonical URL query strings.
+
+The required Hexo peer currently has a low-severity deepmerge advisory with no compatible upstream fix; this plugin has no direct runtime dependencies.
+
+Requires Node.js >=20.19.0.
+
 ## 0.1.0
 
 - Initial public release.

@@ -112,4 +112,21 @@ const noindexTags = buildSeoTags({
 
 assert.match(noindexTags, /<meta name="robots" content="noindex,follow">/);
 
+
+// Invalid front-matter dates must not abort an entire site generation.
+assert.doesNotThrow(() => buildSeoTags({...base, page: {layout: 'post', date: new Date('invalid')}}));
+const withoutLogo = buildSeoTags({config: {url: 'https://example.com', title: 'Site'}, html: base.html});
+assert.doesNotMatch(withoutLogo, /"logo":\{"@type":"ImageObject"\}/);
+assert.strictEqual(buildSeoTags({...base, options: {enable: false}}), '');
+const once = base.html.replace('</head>', postTags + '</head>');
+const twice = buildSeoTags({...base, html: once});
+assert.doesNotMatch(twice, /application\/ld\+json/);
+const withBodyMeta = buildSeoTags({...base, html: '<head></head><body><meta name="description" content="body"></body>'});
+assert.match(withBodyMeta, /name="description"/);
+const withCanonicalQuery = buildSeoTags({...base, html: '<head><link rel="canonical" href="https://example.com/?a=1&amp;b=2"></head>'});
+assert.doesNotMatch(withCanonicalQuery, /&amp;amp;/);
+
+const bodyImage = buildSeoTags({config: {url: 'https://example.com'}, html: base.html});
+assert.match(bodyImage, /property="og:image" content="https:\/\/example.com\/inline.jpg"/);
+
 console.log('seo tests passed');
